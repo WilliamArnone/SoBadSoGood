@@ -4,11 +4,14 @@ Gamestate = require "libs.hump.gamestate"
 Class = require "libs.hump.class"
 Signal = require 'libs.hump.signal'
 push = require "libs.push"
+flux = require "flux"
 
 require "game.ui.object"
 require "game.ui.image"
 require "game.ui.text"
 require "game.ui.button"
+
+require "game.elements.phone"
 
 images = {}
 fonts = {}
@@ -24,12 +27,13 @@ function love.load()
 	states.game = require "game.game"
 
 	-- IMAGES
-	images.cards = love.graphics.newImage("assets/img/cards.png")
+	images.phoneNonno = love.graphics.newImage("assets/img/UI/telefono_nonno.png")
+	images.baloon = love.graphics.newImage("assets/img/UI/balloon.png")
+	images.baloonPlayer = love.graphics.newImage("assets/img/UI/balloon_player.png")
 
 
 	-- FONTS
 	fonts.default = love.graphics.getFont()
-
 
 
 	push:setupScreen(gameWidth, gameHeight, windowWidth, windowHeight, {fullscreen = false, resizable = true})

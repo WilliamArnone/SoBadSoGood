@@ -2,6 +2,7 @@ local game = {}
 local objects = {}
 
 data = {}
+local phones = {}
 
 local function generaNonno()
 	local nonno = {
@@ -16,7 +17,7 @@ function game:enter()
 	Signal.clear('mouseup')
 	Signal.clear('mouseclick')
 
-	table.insert(objects, Button(images.cards, 960, 540))
+	--table.insert(objects, Button(images.cards, 960, 540))
 
 	data = {
 		soldi = 0,
@@ -24,6 +25,13 @@ function game:enter()
 			generaNonno()
 		}
 	}
+
+	local phone = Phone(nil, images.phoneNonno, data.nonni[1])
+	table.insert(phones, phone)
+	table.insert(objects, phone)
+
+	phone.x = 1920 / (#phones + 1)
+	phone.y = 1080 / 2
 end
 
 
@@ -52,6 +60,7 @@ end
 
 function game:update(dt)
 	require("./../libs/lurker").update()
+	flux.update(dt)
 
 	for _, obj in pairs(objects) do if obj.draw ~= nil then obj:update(dt) end end
 end
