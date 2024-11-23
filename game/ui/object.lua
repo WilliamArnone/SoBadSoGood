@@ -9,12 +9,15 @@ Object = Class{
 		self.visible = true
 	end;
 
-	draw = function(self, dx, dy, a)
+	draw = function(self, dx, dy, a, s)
 		dx = dx or 0
 		dy = dy or 0
+		s = s or 1
 		--love.graphics.rectangle(dx + self.x - self.width * self.scale/2, dy + self.y - self.height*self.scale/2, self.width*self.scale, self.height*self.scale)
 		for _, child in ipairs(self.children) do
-			child:draw(dx + self.x, dy + self.y, a)
+			if child.visible then
+				child:draw(dx + self.x, dy + self.y, a, s * self.scale)
+			end
 		end
 	end;
 
@@ -28,9 +31,12 @@ Object = Class{
 			or lume.any(self.children, function(elem) elem:isinside(x, y, dx, dy) end)
 	end;
 
-	update = function(self, dt)
+	update = function(self, dt, dx, dy)
+		dx = dx or 0
+		dy = dy or 0
+
 		for _, child in ipairs(self.children) do
-			child:update(dt)
+			child:update(dt, dx + self.x, dy + self.y)
 		end
-	end
+	end;
 }
